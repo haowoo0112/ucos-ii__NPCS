@@ -714,7 +714,7 @@ void  OSIntExit (void)
 
                     OSTCBHighRdy->OSTCBCtxSwCtr++;         /* Inc. # of context switches to this task  */
                     OSTCBCur->OSTCBCtxSwCtr++;
-
+                    //printf("%d\n", OSTCBCur->OSTCBDly);
                     if (OSTCBCur->OSTCBDly == 0)
                         if (OSTCBCur->OSTCBPrio != OS_TASK_IDLE_PRIO) {
                             printf("%2d\tPreemption\t task(%2d)(%2d)\t task(%2d)(%2d)\n", OSTimeGet(), OSTCBCur->OSTCBId, OSTCBCur->OSTCBExtPtr->TaskNumber, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber);
@@ -723,6 +723,8 @@ void  OSIntExit (void)
                                 fprintf(Output_fp, "%2d\tPreemption\t task(%2d)(%2d)\t task(%2d)(%2d)\n", OSTimeGet(), OSTCBCur->OSTCBId, OSTCBCur->OSTCBExtPtr->TaskNumber, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber);
                                 fclose(Output_fp);
                             }
+                            if (OSTCBHighRdy->OSTCBExtPtr->count == 0)
+                                OSTCBHighRdy->OSTCBExtPtr->start_time = OSTimeGet();
                         }
                         else {
                             printf("%2d\tPreemption\t task(%2d)\t task(%2d)(%2d)\n", OSTimeGet(), OSTCBCur->OSTCBPrio, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber);
@@ -734,55 +736,44 @@ void  OSIntExit (void)
                         }
                     else {
                         if (OSTCBHighRdy->OSTCBPrio != OS_TASK_IDLE_PRIO) {
-                            printf("%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)(%2d)\t      %2d\t     %2d\t\t    %2d\t\t   %2d\n",
+                            printf("%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)(%2d)\n",
                                 OSTimeGet(),
                                 OSTCBCur->OSTCBId, OSTCBCur->OSTCBExtPtr->TaskNumber,
-                                OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber,
-                                OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time,
-                                OSTCBCur->OSTCBCtxSwCtr,
-                                OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time - OSTCBCur->OSTCBExtPtr->TaskExecutionTime,
-                                OSTCBCur->OSTCBDly
+                                OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber
                             );
                             if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                             {
-                                fprintf(Output_fp, "%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)(%2d)\t      %2d\t     %2d\t\t    %2d\t\t   %2d\n",
+                                fprintf(Output_fp, "%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)(%2d)\n",
                                     OSTimeGet(),
                                     OSTCBCur->OSTCBId, OSTCBCur->OSTCBExtPtr->TaskNumber,
-                                    OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber,
-                                    OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time,
-                                    OSTCBCur->OSTCBCtxSwCtr,
-                                    OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time - OSTCBCur->OSTCBExtPtr->TaskExecutionTime,
-                                    OSTCBCur->OSTCBDly);
+                                    OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber
+                                );
                                 fclose(Output_fp);
                             }
+                            if (OSTCBHighRdy->OSTCBExtPtr->count == 0)
+                                OSTCBHighRdy->OSTCBExtPtr->start_time = OSTimeGet();
                         }
                         else {
-                            printf("%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)\t      %2d\t     %2d\t\t    %2d\t\t   %2d\n",
+                            printf("%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)\n",
                                 OSTimeGet(),
                                 OSTCBCur->OSTCBId, OSTCBCur->OSTCBExtPtr->TaskNumber,
-                                OSTCBHighRdy->OSTCBPrio, 
-                                OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time,
-                                OSTCBCur->OSTCBCtxSwCtr,
-                                OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time - OSTCBCur->OSTCBExtPtr->TaskExecutionTime,
-                                OSTCBCur->OSTCBDly
+                                OSTCBHighRdy->OSTCBPrio
                             );
                             if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                             {
-                                fprintf(Output_fp, "%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)\t      %2d\t     %2d\t\t    %2d\t\t   %2d\n",
+                                fprintf(Output_fp, "%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)\n",
                                     OSTimeGet(),
                                     OSTCBCur->OSTCBId, OSTCBCur->OSTCBExtPtr->TaskNumber,
-                                    OSTCBHighRdy->OSTCBPrio,
-                                    OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time,
-                                    OSTCBCur->OSTCBCtxSwCtr,
-                                    OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time - OSTCBCur->OSTCBExtPtr->TaskExecutionTime,
-                                    OSTCBCur->OSTCBDly);
+                                    OSTCBHighRdy->OSTCBPrio
+                                );
                                 fclose(Output_fp);
                             }
                         }
                         OSTCBCur->OSTCBExtPtr->TaskNumber++;
                         OSTCBCur->OSTCBCtxSwCtr = 0;
+                        
                     }
-      
+                    
 #if OS_TASK_PROFILE_EN > 0u
                     
 #endif
@@ -950,7 +941,8 @@ void  OSStart (void)
         OSPrioCur     = OSPrioHighRdy;
         OSTCBHighRdy  = OSTCBPrioTbl[OSPrioHighRdy]; /* Point to highest priority task ready to run    */
         OSTCBCur      = OSTCBHighRdy;
-        printf("Tick\tEvent\t       CurrentTask ID\t NextTask ID    ResponseTime  #of ContextSwitch\t PreemptionTime\t OSTimeDly\n");
+        OSTCBCur->OSTCBExtPtr->start_time = OSTimeGet();
+        printf("Tick\tEvent\t       CurrentTask ID\t NextTask ID\n");
         
         OSStartHighRdy();                            /* Execute target specific code to start task     */
     }
@@ -1041,7 +1033,7 @@ void  OSTimeTick (void)
         if (OSTimeGet() == ptcb->OSTCBExtPtr->TaskArriveTime) {
             OSRdyGrp |= ptcb->OSTCBBitY;         /* Make task ready to run                   */
             OSRdyTbl[ptcb->OSTCBY] |= ptcb->OSTCBBitX;
-            ptcb->OSTCBExtPtr->start_time = OSTimeGet();
+            ptcb->OSTCBExtPtr->arrive_time = OSTimeGet();
             ptcb->OSTCBExtPtr->count = 0;
             OS_Sched();
         }
@@ -1096,9 +1088,10 @@ void  OSTimeTick (void)
                     if ((ptcb->OSTCBStat & OS_STAT_SUSPEND) == OS_STAT_RDY) {  /* Is task suspended?       */
                         OSRdyGrp               |= ptcb->OSTCBBitY;             /* No,  Make ready          */
                         OSRdyTbl[ptcb->OSTCBY] |= ptcb->OSTCBBitX;
-                        ptcb->OSTCBExtPtr->start_time = OSTimeGet();
+                        ptcb->OSTCBExtPtr->arrive_time = OSTimeGet();
                         ptcb->OSTCBExtPtr->count = 0;
                         OS_TRACE_TASK_READY(ptcb);
+                        OS_Sched();
                     }
                 }
             }
@@ -1107,69 +1100,45 @@ void  OSTimeTick (void)
         }
         INT8U      y;
         if (OSTCBCur->OSTCBPrio != OS_TASK_IDLE_PRIO) {
-            if (OSTCBCur->OSTCBExtPtr->count < OSTCBCur->OSTCBExtPtr->TaskExecutionTime-1) {
+            if (OSTCBCur->OSTCBExtPtr->count < OSTCBCur->OSTCBExtPtr->TaskExecutionTime) {
                 OSTCBCur->OSTCBExtPtr->count = (OSTCBCur->OSTCBExtPtr->count) + 1;
+                //printf("%d count: %d %d\n", OSTimeGet(), OSTCBCur->OSTCBExtPtr->count, OSTCBCur->OSTCBId);
             }
-            else {
+            if (OSTCBCur->OSTCBExtPtr->count == OSTCBCur->OSTCBExtPtr->TaskExecutionTime) {
                 OSTCBCur->OSTCBExtPtr->finish_time = OSTimeGet();
-                if ((OSTCBCur->OSTCBExtPtr->TaskPeriodic) - (OSTCBCur->OSTCBExtPtr->finish_time - OSTCBCur->OSTCBExtPtr->start_time) > 0) {
-                    OSTCBCur->OSTCBDly = (OSTCBCur->OSTCBExtPtr->TaskPeriodic) - (OSTCBCur->OSTCBExtPtr->finish_time - OSTCBCur->OSTCBExtPtr->start_time);
+                if ((OSTCBCur->OSTCBExtPtr->TaskPeriodic) - (OSTCBCur->OSTCBExtPtr->finish_time - OSTCBCur->OSTCBExtPtr->arrive_time) > 0) {
+                    OSTCBCur->OSTCBDly = (OSTCBCur->OSTCBExtPtr->TaskPeriodic) - (OSTCBCur->OSTCBExtPtr->finish_time - OSTCBCur->OSTCBExtPtr->arrive_time);
                     y = OSTCBCur->OSTCBY;
                     OSRdyTbl[y] &= (OS_PRIO)~OSTCBCur->OSTCBBitX;
                     OS_TRACE_TASK_SUSPENDED(OSTCBCur);
                     if (OSRdyTbl[y] == 0u) {
                         OSRdyGrp &= (OS_PRIO)~OSTCBCur->OSTCBBitY;
                     }
-                    OS_TRACE_TASK_DLY((OSTCBCur->OSTCBExtPtr->TaskPeriodic) - (OSTCBCur->OSTCBExtPtr->finish_time - OSTCBCur->OSTCBExtPtr->start_time));
-                    OS_Sched();
+                    //printf("%d delay: %d \n", OSTimeGet(), OSTCBCur->OSTCBDly);
+                    OS_TRACE_TASK_DLY((OSTCBCur->OSTCBExtPtr->TaskPeriodic) - (OSTCBCur->OSTCBExtPtr->finish_time - OSTCBCur->OSTCBExtPtr->arrive_time));
                 }
                 else {
-                    printf("%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)(%2d)\t      %2d\t     %2d\t\t    %2d\n",
+                    printf("%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)(%2d)\n",
                         OSTimeGet(),
                         OSTCBCur->OSTCBId, OSTCBCur->OSTCBExtPtr->TaskNumber,
-                        OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber+1,
-                        OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time,
-                        OSTCBCur->OSTCBCtxSwCtr,
-                        OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time - OSTCBCur->OSTCBExtPtr->TaskExecutionTime
+                        OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber+1
                     );
                     if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                     {
-                        fprintf(Output_fp, "%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)(%2d)\t      %2d\t     %2d\t\t    %2d\n",
+                        fprintf(Output_fp, "%2d\tCompletion\t task(%2d)(%2d)\t task(%2d)(%2d)\n",
                             OSTimeGet(),
                             OSTCBCur->OSTCBId, OSTCBCur->OSTCBExtPtr->TaskNumber,
-                            OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber + 1,
-                            OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time,
-                            OSTCBCur->OSTCBCtxSwCtr,
-                            OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time - OSTCBCur->OSTCBExtPtr->TaskExecutionTime);
+                            OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber + 1
+                        );
                         fclose(Output_fp);
                     }
                     OSTCBCur->OSTCBExtPtr->count = 0;
-                    OSTCBCur->OSTCBExtPtr->start_time = OSTimeGet();
+                    OSTCBCur->OSTCBExtPtr->arrive_time = OSTimeGet();
                     OSTCBCur->OSTCBCtxSwCtr = 0;
                     OSTCBHighRdy->OSTCBExtPtr->TaskNumber++;
                 }
             }
-        }
-
-        ptcb = OSTCBList;                                  /* Point at first TCB in TCB list               */
-        while (ptcb->OSTCBPrio != OS_TASK_IDLE_PRIO) {     /* Go through all TCBs in TCB list              */
-            OS_ENTER_CRITICAL();
-            if (OSTimeGet() == ptcb->OSTCBExtPtr->start_time + ptcb->OSTCBExtPtr->TaskPeriodic && OSTimeGet() > ptcb->OSTCBExtPtr->TaskArriveTime) {
-                printf("%2d\tMissDeadline\t task(%2d)(%2d)\t -------------------\n", OSTimeGet(), ptcb ->OSTCBId, ptcb->OSTCBExtPtr->TaskNumber);
-                if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
-                {
-                    fprintf(Output_fp, "%2d\tMissDeadline\t task(%2d)(%2d)\t -------------------\n", OSTimeGet(), ptcb->OSTCBId, ptcb->OSTCBExtPtr->TaskNumber);
-                    fclose(Output_fp);
-                }
-                ptcb->OSTCBExtPtr->TaskNumber++;
-                ptcb->OSTCBExtPtr->start_time = OSTimeGet();
-                ptcb->OSTCBExtPtr->count = 0;
-                ptcb->OSTCBCtxSwCtr = 0;
-            }
-            ptcb = ptcb->OSTCBNext;                        /* Point at next TCB in TCB list                */
-            OS_EXIT_CRITICAL();
-        }
-            
+        }  
 
     }
 }
@@ -1882,6 +1851,25 @@ void  OS_Sched (void)
 #if OS_TASK_PROFILE_EN > 0u
                 OSTCBHighRdy->OSTCBCtxSwCtr++;         /* Inc. # of context switches to this task      */
 #endif
+                if (OSTCBCur->OSTCBPrio != OS_TASK_IDLE_PRIO) {
+                    printf("%2d\tPreemption\t task(%2d)(%2d)\t task(%2d)(%2d)\n", OSTimeGet(), OSTCBCur->OSTCBId, OSTCBCur->OSTCBExtPtr->TaskNumber, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber);
+                    if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
+                    {
+                        fprintf(Output_fp, "%2d\tPreemption\t task(%2d)(%2d)\t task(%2d)(%2d)\n", OSTimeGet(), OSTCBCur->OSTCBId, OSTCBCur->OSTCBExtPtr->TaskNumber, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber);
+                        fclose(Output_fp);
+                }
+                    if (OSTCBHighRdy->OSTCBExtPtr->count == 0)
+                        OSTCBHighRdy->OSTCBExtPtr->start_time = OSTimeGet();
+            }
+                else {
+                    printf("%2d\tPreemption\t task(%2d)\t task(%2d)(%2d)\n", OSTimeGet(), OSTCBCur->OSTCBPrio, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber);
+                    if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
+                    {
+                        fprintf(Output_fp, "%2d\tPreemption\t task(%2d)\t task(%2d)(%2d)\n", OSTimeGet(), OSTCBCur->OSTCBPrio, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBExtPtr->TaskNumber);
+                        fclose(Output_fp);
+                    }
+                }
+
                 OSCtxSwCtr++;                          /* Increment context switch counter             */
                 
 #if OS_TASK_CREATE_EXT_EN > 0u
@@ -2302,7 +2290,7 @@ INT8U  OS_TCBInit (INT8U    prio,
         if (ptcb->OSTCBId != OS_TASK_IDLE_ID && ptcb->OSTCBExtPtr->TaskArriveTime == 0 ) {
             OSRdyGrp |= ptcb->OSTCBBitY;         /* Make task ready to run                   */
             OSRdyTbl[ptcb->OSTCBY] |= ptcb->OSTCBBitX;
-            ptcb->OSTCBExtPtr->start_time = OSTimeGet();
+            ptcb->OSTCBExtPtr->arrive_time = OSTimeGet();
             ptcb->OSTCBExtPtr->count = 0;
             OS_TRACE_TASK_READY(ptcb);
         }
@@ -2310,36 +2298,6 @@ INT8U  OS_TCBInit (INT8U    prio,
         if (ptcb->OSTCBId != OS_TASK_IDLE_ID)
             ptcb->OSTCBExtPtr->TaskNumber = 0;
 
-        //PA1 part1
-        if (ptcb->OSTCBId != OS_TASK_IDLE_ID) {
-            printf("Task[%2d] created, TCB Address\t%6x\n", ptcb->OSTCBId, ptcb);
-            printf("------After TCB[%2d] being linked------\n", OSTCBList->OSTCBId);
-        }
-        else {
-            printf("Task[%2d] created, TCB Address\t%6x\n", 63, ptcb);
-            printf("------After TCB[%2d] being linked------\n", 63);
-        }
-        printf("Previous TCB point to address\t%6x\n", OSTCBList->OSTCBPrev);
-        printf("Current\t TCB point to address\t%6x\n", OSTCBList);
-        printf("Next\t TCB point to address\t%6x\n", OSTCBList->OSTCBNext);
-        
-        printf("\n");
-
-
-        if (OSTaskCtr == TASK_NUMBER + 1 && ptcb->OSTCBId != OS_TASK_IDLE_ID) {
-            printf("================TCB linked list================\n");
-            printf("Task\tPrev_TCB_addr\tTCB_addr   Next_TCB_addr\n");
-            ptcb = OSTCBList;
-            while (ptcb != (OS_TCB*)0) {
-                if (ptcb->OSTCBId != OS_TASK_IDLE_ID)
-                    printf("%2d\t     %6x\t  %6x\t%6x\n", ptcb->OSTCBId, ptcb->OSTCBPrev, ptcb, ptcb->OSTCBNext);
-                else
-                    printf("%2d\t     %6x\t  %6x\t%6x\n", 63, ptcb->OSTCBPrev, ptcb, ptcb->OSTCBNext);
-                ptcb = ptcb->OSTCBNext;
-            }
-            printf("\n");
-        }
-        
         OS_EXIT_CRITICAL();
         return (OS_ERR_NONE);
     }

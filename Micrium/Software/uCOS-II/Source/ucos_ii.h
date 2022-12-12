@@ -65,15 +65,23 @@ extern "C" {
 
 
 /*End time for the simulation*/
-#define SYSTEM_END_TIME 30
+#define SYSTEM_END_TIME 100
 
 /*Input file*/
 FILE* fp;
 #define INPUT_FULE_NAME "./TaskSet.txt"
 #define OUTPUT_FULE_NAME "./Output.txt"
 #define MAX 20  //Task maxumum number
-#define INFO 4  //information of task
+#define INFO 8  //information of task
 /*Input File*/
+
+#define R1_PRIO 1
+#define R2_PRIO 3
+#define TASK1_PRIORITY 2
+#define TASK2_PRIORITY 4
+
+//OS_EVENT* R1;
+//OS_EVENT* R2;
 
 /*Output File*/
 FILE* Output_fp;
@@ -91,6 +99,11 @@ typedef struct task_para_set {
     INT16U count;
     INT16U start_time;
     INT16U finish_time;
+    INT16U arrive_time;
+    INT16U R1LockTime;
+    INT16U R1UnlockTime;
+    INT16U R2LockTime;
+    INT16U R2UnlockTime;
 } task_para_set;
 
 int TASK_NUMBER;    //Number of the input tasks
