@@ -153,17 +153,17 @@ void task(void* pdata) {
                 mywait(task_data->R1LockTime);
 
                 OSSchedLock();
-                printf("%2d\tTask %d get R1\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d get R1\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d get R1\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d get R1\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 mywait(task_data->R1UnlockTime - task_data->R1LockTime);
-                printf("%2d\tTask %d release R1\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d release R1\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d release R1\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d release R1\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 OSSchedUnlock();
@@ -171,17 +171,17 @@ void task(void* pdata) {
                 mywait(task_data->R2LockTime - task_data->R1UnlockTime);
 
                 OSSchedLock();
-                printf("%2d\tTask %d get R2\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d get R2\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d get R2\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d get R2\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 mywait(task_data->R2UnlockTime - task_data->R2LockTime);
-                printf("%2d\tTask %d release R2\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d release R2\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d release R2\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d release R2\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 OSSchedUnlock();
@@ -192,31 +192,31 @@ void task(void* pdata) {
                 mywait(task_data->R1LockTime);
 
                 OSSchedLock();
-                printf("%2d\tTask %d get R1\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d get R1\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d get R1\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d get R1\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 mywait(task_data->R2LockTime - task_data->R1LockTime);
-                printf("%2d\tTask %d get R2\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d get R2\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d get R2\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d get R2\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 mywait(task_data->R2UnlockTime - task_data->R2LockTime);
-                printf("%2d\tTask %d release R2\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d release R2\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d release R2\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d release R2\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 mywait(task_data->R1UnlockTime - task_data->R2UnlockTime);
-                printf("%2d\tTask %d release R1\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d release R1\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d release R1\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d release R1\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 OSSchedUnlock();
@@ -227,17 +227,17 @@ void task(void* pdata) {
                 mywait(task_data->R2LockTime);
 
                 OSSchedLock();
-                printf("%2d\tTask %d get R2\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d get R2\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d get R2\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d get R2\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 mywait(task_data->R2UnlockTime - task_data->R2LockTime);
-                printf("%2d\tTask %d release R2\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d release R2\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d release R2\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d release R2\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 OSSchedUnlock();
@@ -245,17 +245,17 @@ void task(void* pdata) {
                 mywait(task_data->R1LockTime - task_data->R2UnlockTime);
 
                 OSSchedLock();
-                printf("%2d\tTask %d get R1\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d get R1\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d get R1\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d get R1\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 mywait(task_data->R1UnlockTime - task_data->R1LockTime);
-                printf("%2d\tTask %d release R1\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d release R1\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d release R1\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d release R1\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 OSSchedUnlock();
@@ -266,31 +266,31 @@ void task(void* pdata) {
                 mywait(task_data->R2LockTime);
 
                 OSSchedLock();
-                printf("%2d\tTask %d get R2\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d get R2\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d get R2\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d get R2\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 mywait(task_data->R1LockTime - task_data->R2LockTime);
-                printf("%2d\tTask %d get R1\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d get R1\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d get R1\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d get R1\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 mywait(task_data->R1UnlockTime - task_data->R1LockTime);
-                printf("%2d\tTask %d release R1\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d release R1\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d release R1\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d release R1\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 mywait(task_data->R2UnlockTime - task_data->R1UnlockTime);
-                printf("%2d\tTask %d release R2\n", OSTimeGet(), task_data->TaskID);
+                printf("%2d\ttask %d release R2\n", OSTimeGet(), task_data->TaskID);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
-                    fprintf(Output_fp, "%2d\tTask %d release R2\n", OSTimeGet(), task_data->TaskID);
+                    fprintf(Output_fp, "%2d\ttask %d release R2\n", OSTimeGet(), task_data->TaskID);
                     fclose(Output_fp);
                 }
                 OSSchedUnlock();
@@ -302,19 +302,19 @@ void task(void* pdata) {
             mywait(task_data->R1LockTime);
 
             OSSchedLock();
-            printf("%2d\tTask %d get R1\n", OSTimeGet(), task_data->TaskID);
+            printf("%2d\ttask %d get R1\n", OSTimeGet(), task_data->TaskID);
             if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
             {
-                fprintf(Output_fp, "%2d\tTask %d get R1\n", OSTimeGet(), task_data->TaskID);
+                fprintf(Output_fp, "%2d\ttask %d get R1\n", OSTimeGet(), task_data->TaskID);
                 fclose(Output_fp);
             }
             
             mywait(task_data->R1UnlockTime - task_data->R1LockTime);
  
-            printf("%2d\tTask %d release R1\n", OSTimeGet(), task_data->TaskID);
+            printf("%2d\ttask %d release R1\n", OSTimeGet(), task_data->TaskID);
             if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
             {
-                fprintf(Output_fp, "%2d\tTask %d release R1\n", OSTimeGet(), task_data->TaskID);
+                fprintf(Output_fp, "%2d\ttask %d release R1\n", OSTimeGet(), task_data->TaskID);
                 fclose(Output_fp);
             }
             OSSchedUnlock();
@@ -325,17 +325,17 @@ void task(void* pdata) {
             mywait(task_data->R2LockTime);
 
             OSSchedLock();
-            printf("%2d\tTask %d get R2\n", OSTimeGet(), task_data->TaskID);
+            printf("%2d\ttask %d get R2\n", OSTimeGet(), task_data->TaskID);
             if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
             {
-                fprintf(Output_fp, "%2d\tTask %d get R2\n", OSTimeGet(), task_data->TaskID);
+                fprintf(Output_fp, "%2d\ttask %d get R2\n", OSTimeGet(), task_data->TaskID);
                 fclose(Output_fp);
             }
             mywait(task_data->R2UnlockTime - task_data->R2LockTime);
-            printf("%2d\tTask %d release R2\n", OSTimeGet(), task_data->TaskID);
+            printf("%2d\ttask %d release R2\n", OSTimeGet(), task_data->TaskID);
             if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
             {
-                fprintf(Output_fp, "%2d\tTask %d release R2\n", OSTimeGet(), task_data->TaskID);
+                fprintf(Output_fp, "%2d\ttask %d release R2\n", OSTimeGet(), task_data->TaskID);
                 fclose(Output_fp);
             }
             OSSchedUnlock();
